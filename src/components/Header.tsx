@@ -28,7 +28,7 @@ export default function Header() {
         </InputRightElement>
       </InputGroup>
       <HStack>
-        <Button mr={3}>Sign in</Button>
+        <Button>Sign in</Button>
         <Button>Sign up</Button>
       </HStack>
     </HStack>
