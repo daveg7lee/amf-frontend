@@ -1,8 +1,23 @@
 "use client";
 
+import { userState } from "@/atom";
+import initializeFirebaseClient from "@/lib/initFirebase";
 import { Box, Button, HStack, Heading, Image } from "@chakra-ui/react";
+import Link from "next/link";
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 
 export default function Home() {
+  const setUser = useSetRecoilState(userState);
+  const { auth } = initializeFirebaseClient();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      const userCopy = JSON.parse(JSON.stringify(user));
+      setUser(userCopy);
+    });
+  }, []);
+
   return (
     <Box
       minH="80vh"
@@ -20,7 +35,9 @@ export default function Home() {
         </Heading>
         <HStack mt={6}>
           <Button>Learn more</Button>
-          <Button>Sign up</Button>
+          <Button as={Link} href="/signin">
+            Sign up
+          </Button>
         </HStack>
       </Box>
       <Box
