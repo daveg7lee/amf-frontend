@@ -1,7 +1,7 @@
 "use client";
 
 import initializeFirebaseClient from "@/lib/initFirebase";
-import { Button, Center } from "@chakra-ui/react";
+import { Button, Center, useToast } from "@chakra-ui/react";
 import { useAuth, useAddress, ConnectWallet } from "@thirdweb-dev/react";
 import { signInWithCustomToken } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -12,6 +12,7 @@ export default function SignIn() {
   const thirdwebAuth = useAuth();
   const address = useAddress();
   const router = useRouter();
+  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { auth, db } = initializeFirebaseClient();
 
@@ -44,6 +45,7 @@ export default function SignIn() {
       router.push("/onboarding");
     } else {
       router.push("/");
+      toast({ title: "you are logged in!", status: "success" });
     }
   }
 
