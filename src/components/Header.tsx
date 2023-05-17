@@ -37,17 +37,17 @@ export default function Header() {
         <Heading as={NextLink} href="/" mr={5} cursor="pointer">
           AMF
         </Heading>
-        <Link as={NextLink} fontSize="lg" href="/marketplace">
+        <Link as={NextLink} fontSize="md" href="/marketplace">
           Market
         </Link>
       </HStack>
-      <InputGroup size="md" w="30%">
-        <Input placeholder="Search" />
-        <InputRightElement>
-          <Search2Icon />
-        </InputRightElement>
-      </InputGroup>
       <HStack>
+        <InputGroup size="md" mr={5} w={{ sm: "40", md: "72", lg: "96" }}>
+          <Input placeholder="Search" />
+          <InputRightElement>
+            <Search2Icon />
+          </InputRightElement>
+        </InputGroup>
         {user ? (
           <Menu>
             <MenuButton>

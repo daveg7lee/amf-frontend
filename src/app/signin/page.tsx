@@ -2,7 +2,12 @@
 
 import initializeFirebaseClient from "@/lib/initFirebase";
 import { Button, Center, useToast } from "@chakra-ui/react";
-import { useAuth, useAddress, ConnectWallet } from "@thirdweb-dev/react";
+import {
+  useAuth,
+  useAddress,
+  ConnectWallet,
+  Web3Button,
+} from "@thirdweb-dev/react";
 import { signInWithCustomToken } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
