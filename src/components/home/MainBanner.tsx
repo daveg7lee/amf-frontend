@@ -9,6 +9,7 @@ interface IMainBannerProps {
   secondButton: string;
   firstLink?: string;
   secondLink?: string;
+  imgSize?: string;
 }
 
 export default function MainBanner({
@@ -19,6 +20,7 @@ export default function MainBanner({
   secondButton,
   firstLink,
   secondLink,
+  imgSize = "18rem",
 }: IMainBannerProps) {
   return (
     <Box
@@ -27,6 +29,7 @@ export default function MainBanner({
       justifyContent="space-evenly"
       alignItems="center"
       minH="90vh"
+      userSelect="none"
     >
       <Box
         display="flex"
@@ -51,11 +54,8 @@ export default function MainBanner({
           )}
         </HStack>
       </Box>
-      <Box
-        position="relative"
-        display={{ base: "none", md: "none", lg: "block" }}
-      >
-        <Image src={`/${img}`} alt="main" width="10rem" />
+      <Box display={{ base: "none", md: "none", lg: "block" }} width={imgSize}>
+        <Image src={`/${img}`} alt="main" />
       </Box>
     </Box>
   );

@@ -56,6 +56,7 @@ export default function Home() {
           firstButton="Learn more"
           secondButton="Sign up"
           secondLink="signup"
+          imgSize="22rem"
         />
         <MainBanner
           firstText="CAFE Direct"
