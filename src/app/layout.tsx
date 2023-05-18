@@ -39,7 +39,7 @@ export default function RootLayout({
         >
           <RecoilRoot>
             <Providers>
-              <Box px="10" minH="100vh">
+              <Box px={{ sm: "3", md: "5", lg: "10" }} minH="100vh">
                 <Header />
                 {children}
               </Box>

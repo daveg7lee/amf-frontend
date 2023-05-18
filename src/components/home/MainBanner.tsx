@@ -1,12 +1,30 @@
 import { Heading, HStack, Button, Box, Image } from "@chakra-ui/react";
 import Link from "next/link";
 
-export default function MainBanner() {
+interface IMainBannerProps {
+  firstText: string;
+  secondText: string;
+  img: string;
+  firstButton: string;
+  secondButton: string;
+  firstLink?: string;
+  secondLink?: string;
+}
+
+export default function MainBanner({
+  firstText,
+  secondText,
+  img,
+  firstButton,
+  secondButton,
+  firstLink,
+  secondLink,
+}: IMainBannerProps) {
   return (
     <Box
       w="full"
       display="flex"
-      justifyContent="center"
+      justifyContent="space-evenly"
       alignItems="center"
       minH="90vh"
     >
@@ -17,23 +35,27 @@ export default function MainBanner() {
         alignItems="start"
       >
         <Heading fontSize="7xl" my={3}>
-          Avax
+          {firstText}
         </Heading>
         <Heading fontSize="7xl" my={3} textAlign="start">
-          Meet Fair Trade
+          {secondText}
         </Heading>
         <HStack mt={6}>
-          <Button>Learn more</Button>
-          <Button as={Link} href="/signin">
-            Sign up
-          </Button>
+          <Button>{firstButton}</Button>
+          {secondLink ? (
+            <Button as={Link} href={secondLink}>
+              {secondButton}
+            </Button>
+          ) : (
+            <Button>{secondButton}</Button>
+          )}
         </HStack>
       </Box>
       <Box
         position="relative"
         display={{ base: "none", md: "none", lg: "block" }}
       >
-        <Image src="/main.png" alt="main" width="10rem" />
+        <Image src={`/${img}`} alt="main" width="10rem" />
       </Box>
     </Box>
   );
