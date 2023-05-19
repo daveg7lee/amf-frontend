@@ -6,14 +6,12 @@ import {
   Box,
   Card,
   CardBody,
-  CardFooter,
   HStack,
   Heading,
-  Icon,
   Image,
   SimpleGrid,
+  Skeleton,
   SkeletonCircle,
-  SkeletonText,
   Stack,
   Tab,
   TabList,
@@ -24,7 +22,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useAddress } from "@thirdweb-dev/react";
-import { data } from "autoprefixer";
 import { DocumentData } from "firebase-admin/firestore";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -63,17 +60,21 @@ export default function Me() {
 
   return (
     <Box my="10">
-      <HStack spacing="20" alignItems="center" justifyContent="start">
+      <HStack spacing="14" alignItems="center" justifyContent="start">
         {userData?.img ? (
-          <Image src={userData?.img} width="60" />
+          <Image src={userData?.img} width="48" />
         ) : (
-          <SkeletonCircle size="60" />
+          <SkeletonCircle size="48" />
         )}
         <VStack justifyContent="start" alignItems="start">
           <Text fontSize="2xl" fontWeight="bold">
             Wallet Address
           </Text>
-          {address ? <Text fontSize="lg">{address}</Text> : <SkeletonText />}
+          {address ? (
+            <Text fontSize="lg">{address}</Text>
+          ) : (
+            <Skeleton height="7" w="full" />
+          )}
         </VStack>
         <VStack justifyContent="start" alignItems="start">
           <Text fontSize="2xl" fontWeight="bold">

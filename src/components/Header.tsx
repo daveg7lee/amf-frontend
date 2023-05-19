@@ -2,15 +2,11 @@
 
 import { userState } from "@/atom";
 import initializeFirebaseClient from "@/lib/initFirebase";
-import { Search2Icon } from "@chakra-ui/icons";
 import {
   Avatar,
   Button,
   HStack,
   Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
   Link,
   Menu,
   MenuButton,
@@ -19,9 +15,11 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/navigation";
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export default function Header() {
+  const setUser = useSetRecoilState(userState);
   const { auth } = initializeFirebaseClient();
   const user = useRecoilValue(userState);
   const router = useRouter();
@@ -31,15 +29,32 @@ export default function Header() {
     router.push("/");
   };
 
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      const userCopy = JSON.parse(JSON.stringify(user));
+      setUser(userCopy);
+    });
+  }, []);
+
   return (
     <HStack w="full" alignItems="center" justifyContent="space-between" pt="4">
-      <HStack>
-        <Heading as={NextLink} href="/" mr={5} cursor="pointer">
+      <HStack spacing={10}>
+        <Heading as={NextLink} href="/" cursor="pointer">
           AMF
         </Heading>
-        <Link as={NextLink} fontSize="md" href="/marketplace">
-          Market
-        </Link>
+        <HStack spacing={8}>
+          <Link
+            as={NextLink}
+            fontSize="md"
+            fontWeight="medium"
+            href="/marketplace"
+          >
+            Market
+          </Link>
+          <Link as={NextLink} fontSize="md" fontWeight="medium" href="/defi">
+            Defi
+          </Link>
+        </HStack>
       </HStack>
       <HStack>
         {user ? (

@@ -18,8 +18,7 @@ import {
 import ProductCard from "@/components/home/ProductCard";
 
 export default function Home() {
-  const setUser = useSetRecoilState(userState);
-  const { auth, db } = initializeFirebaseClient();
+  const { db } = initializeFirebaseClient();
   const [coffees, setCoffees] = useState<DocumentData[]>([]);
   const [chocolates, setChocolates] = useState<DocumentData[]>([]);
 
@@ -40,13 +39,6 @@ export default function Home() {
   useEffect(() => {
     getCoffeesData();
     getChocolateData();
-  }, []);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      const userCopy = JSON.parse(JSON.stringify(user));
-      setUser(userCopy);
-    });
   }, []);
 
   return (
