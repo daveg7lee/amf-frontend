@@ -64,6 +64,8 @@ export default function Home() {
           img="main2.png"
           firstButton="View on market"
           secondButton="Explore market"
+          firstLink="marketplace"
+          secondLink="marketplace"
         />
         <MainBanner
           firstText="Alter eco"
@@ -71,6 +73,8 @@ export default function Home() {
           img="main3.png"
           firstButton="View on market"
           secondButton="Explore market"
+          firstLink="marketplace"
+          secondLink="marketplace"
         />
       </Carousel>
       <Box px={{ base: "0", md: "6", lg: "20" }}>

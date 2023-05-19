@@ -42,12 +42,6 @@ export default function Header() {
         </Link>
       </HStack>
       <HStack>
-        <InputGroup size="md" mr={5} w={{ sm: "40", md: "72", lg: "96" }}>
-          <Input placeholder="Search" />
-          <InputRightElement>
-            <Search2Icon />
-          </InputRightElement>
-        </InputGroup>
         {user ? (
           <Menu>
             <MenuButton>

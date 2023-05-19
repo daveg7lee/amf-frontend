@@ -21,6 +21,7 @@ export default function ProductCard({ data }: IProductCardProps) {
       direction={{ sm: "column", lg: "row" }}
       overflow="hidden"
       variant="outline"
+      cursor="pointer"
     >
       <Image
         objectFit="cover"
