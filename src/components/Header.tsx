@@ -12,7 +12,9 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from "@chakra-ui/react";
+import { useAddress } from "@thirdweb-dev/react";
 import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -22,6 +24,7 @@ export default function Header() {
   const setUser = useSetRecoilState(userState);
   const { auth } = initializeFirebaseClient();
   const user = useRecoilValue(userState);
+  const address = useAddress();
   const router = useRouter();
 
   const onClickSignout = () => {
@@ -60,7 +63,12 @@ export default function Header() {
         {user ? (
           <Menu>
             <MenuButton>
-              <Avatar size="sm" />
+              <HStack>
+                <Avatar size="sm" />
+                <Text>
+                  {address?.substring(0, 5) + "..." + address?.substring(6, 10)}
+                </Text>
+              </HStack>
             </MenuButton>
             <MenuList>
               <NextLink href="/me">
