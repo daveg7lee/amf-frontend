@@ -39,7 +39,11 @@ export default function Onboarding() {
     const usersRef = doc(db, "users", auth.currentUser.uid);
     setDoc(
       usersRef,
-      { ...data, createdAt: serverTimestamp() },
+      {
+        ...data,
+        createdAt: serverTimestamp(),
+        img: "https://ipfs.thirdwebcdn.com/ipfs/QmcJh2k69iDQDdZnfdUS4MtWWu1ReEDGkSRudRFfMLrUta/Avalanche_logo_without_text.png",
+      },
       { merge: true }
     );
 

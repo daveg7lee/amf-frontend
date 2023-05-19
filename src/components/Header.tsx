@@ -48,7 +48,9 @@ export default function Header() {
               <Avatar size="sm" />
             </MenuButton>
             <MenuList>
-              <MenuItem>My Page</MenuItem>
+              <NextLink href="/me">
+                <MenuItem>My Page</MenuItem>
+              </NextLink>
               <MenuItem onClick={onClickSignout}>Log out</MenuItem>
             </MenuList>
           </Menu>
