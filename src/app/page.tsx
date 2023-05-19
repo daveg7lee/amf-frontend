@@ -8,7 +8,13 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { getDocs, collection, DocumentData } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  DocumentData,
+  where,
+  query,
+} from "firebase/firestore";
 import ProductCard from "@/components/home/ProductCard";
 
 export default function Home() {
@@ -18,12 +24,16 @@ export default function Home() {
   const [chocolates, setChocolates] = useState<DocumentData[]>([]);
 
   const getCoffeesData = async () => {
-    const querySnapshot = await getDocs(collection(db, "coffees"));
+    const querySnapshot = await getDocs(
+      query(collection(db, "items"), where("type", "==", "coffee"))
+    );
     setCoffees(querySnapshot.docs.map((doc) => doc.data()));
   };
 
   const getChocolateData = async () => {
-    const querySnapshot = await getDocs(collection(db, "chocolates"));
+    const querySnapshot = await getDocs(
+      query(collection(db, "items"), where("type", "==", "chocolate"))
+    );
     setChocolates(querySnapshot.docs.map((doc) => doc.data()));
   };
 

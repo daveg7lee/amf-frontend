@@ -19,7 +19,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { DocumentData } from "firebase-admin/firestore";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query, where } from "firebase/firestore";
 import { useState, useEffect, KeyboardEvent, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 
@@ -39,13 +39,17 @@ export default function MarketPlace() {
   >([]);
 
   const getCoffeesData = async () => {
-    const querySnapshot = await getDocs(collection(db, "coffees"));
+    const querySnapshot = await getDocs(
+      query(collection(db, "items"), where("type", "==", "coffee"))
+    );
     setCoffees(querySnapshot.docs.map((doc) => doc.data()));
     setCoffeeSearchData(querySnapshot.docs.map((doc) => doc.data()));
   };
 
   const getChocolateData = async () => {
-    const querySnapshot = await getDocs(collection(db, "chocolates"));
+    const querySnapshot = await getDocs(
+      query(collection(db, "items"), where("type", "==", "chocolate"))
+    );
     setChocolates(querySnapshot.docs.map((doc) => doc.data()));
     setChocolateSearchData(querySnapshot.docs.map((doc) => doc.data()));
   };

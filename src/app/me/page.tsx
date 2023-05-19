@@ -4,10 +4,17 @@ import { userState } from "@/atom";
 import initializeFirebaseClient from "@/lib/initFirebase";
 import {
   Box,
+  Card,
+  CardBody,
+  CardFooter,
   HStack,
+  Heading,
+  Icon,
   Image,
+  SimpleGrid,
   SkeletonCircle,
   SkeletonText,
+  Stack,
   Tab,
   TabList,
   TabPanel,
@@ -16,9 +23,10 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useAddress, useWallet } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
+import { data } from "autoprefixer";
 import { DocumentData } from "firebase-admin/firestore";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
@@ -28,6 +36,7 @@ export default function Me() {
   const { db } = initializeFirebaseClient();
 
   const [userData, setUserData] = useState<DocumentData>();
+  const [recentItems, setRecentItems] = useState<DocumentData[]>();
 
   const getUserData = async () => {
     if (!user?.uid) return;
@@ -39,12 +48,21 @@ export default function Me() {
     }
   };
 
+  const getRecentItems = async () => {
+    if (!user?.uid) return;
+
+    const recentItemsRef = collection(db, "users", user.uid, "shopping-list");
+    const querySnapshot = await getDocs(recentItemsRef);
+    setRecentItems(querySnapshot.docs.map((doc) => doc.data()));
+  };
+
   useEffect(() => {
     getUserData();
+    getRecentItems();
   }, [user]);
 
   return (
-    <Box mt="10">
+    <Box my="10">
       <HStack spacing="20" alignItems="center" justifyContent="start">
         {userData?.img ? (
           <Image src={userData?.img} width="60" />
@@ -64,14 +82,39 @@ export default function Me() {
           <Text fontSize="lg">0xxxxxxxx0xxx</Text>
         </VStack>
       </HStack>
-      <Tabs px="28" mt="14">
+      <Tabs px="16" mt="14">
         <TabList>
           <Tab>Recent Item</Tab>
           <Tab>My Staking</Tab>
         </TabList>
 
         <TabPanels>
-          <TabPanel>TODO</TabPanel>
+          <TabPanel>
+            <SimpleGrid columns={{ sm: 1, md: 2, lg: 2, xl: 3 }} spacing={4}>
+              {recentItems
+                ? recentItems.map((recentItem) => (
+                    <Card
+                      direction="column"
+                      overflow="hidden"
+                      variant="outline"
+                      cursor="pointer"
+                    >
+                      <Image
+                        objectFit="cover"
+                        maxW="100%"
+                        src={recentItem.img}
+                        alt="Caffe Latte"
+                      />
+                      <Stack>
+                        <CardBody>
+                          <Heading size="md">{recentItem.title}</Heading>
+                        </CardBody>
+                      </Stack>
+                    </Card>
+                  ))
+                : null}
+            </SimpleGrid>
+          </TabPanel>
           <TabPanel>TODO</TabPanel>
         </TabPanels>
       </Tabs>
