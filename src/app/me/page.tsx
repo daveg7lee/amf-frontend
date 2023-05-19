@@ -9,6 +9,7 @@ import {
   HStack,
   Heading,
   Image,
+  Input,
   SimpleGrid,
   Skeleton,
   SkeletonCircle,
@@ -20,20 +21,32 @@ import {
   Tabs,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useStorage } from "@thirdweb-dev/react";
 import { DocumentData } from "firebase-admin/firestore";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 
 export default function Me() {
   const user = useRecoilValue(userState);
   const address = useAddress();
+  const toast = useToast();
+  const storage = useStorage();
+  const { register, watch } = useForm();
   const { db } = initializeFirebaseClient();
-
+  const [preview, setPreview] = useState<string>();
   const [userData, setUserData] = useState<DocumentData>();
   const [recentItems, setRecentItems] = useState<DocumentData[]>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const getUserData = async () => {
     if (!user?.uid) return;
@@ -42,6 +55,7 @@ export default function Me() {
     const data = await getDoc(usersRef);
     if (data.exists()) {
       setUserData(data.data());
+      setPreview(data.data().img);
     }
   };
 
@@ -58,11 +72,59 @@ export default function Me() {
     getRecentItems();
   }, [user]);
 
+  const uploadFile = async () => {
+    if (watch("file") && user?.uid) {
+      const file: File = watch("file")[0];
+      if (file) {
+        toast({
+          title: "Uploading to IPFS... (it may takes minutes)",
+          status: "info",
+          duration: 2000,
+          isClosable: true,
+        });
+        const url = await storage?.upload(file);
+        const fullUrl =
+          "https://ipfs.thirdwebcdn.com/ipfs/" + url?.split("://")[1];
+
+        setPreview(fullUrl);
+        const usersRef = doc(db, "users", user.uid);
+        updateDoc(usersRef, {
+          img: fullUrl,
+        });
+
+        toast({
+          title: "Profile updated!",
+          status: "success",
+          duration: 1000,
+          isClosable: true,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    uploadFile();
+  }, [watch("file")]);
+
   return (
     <Box my="10">
       <HStack spacing="14" alignItems="center" justifyContent="start">
         {userData?.img ? (
-          <Image src={userData?.img} width="48" />
+          <label htmlFor="file">
+            {!isLoading ? (
+              <Image
+                src={preview}
+                width="48"
+                height="48"
+                cursor="pointer"
+                rounded="full"
+                fit="cover"
+              />
+            ) : (
+              <SkeletonCircle size="48" />
+            )}
+            <Input type="file" id="file" {...register("file")} display="none" />
+          </label>
         ) : (
           <SkeletonCircle size="48" />
         )}
