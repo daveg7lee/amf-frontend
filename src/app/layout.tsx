@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import Header from "@/components/Header";
 import { RecoilRoot } from "recoil";
-import { Box } from "@chakra-ui/react";
+import { Box, ColorModeScript } from "@chakra-ui/react";
 
 export default function RootLayout({
   children,
@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ minHeight: "100vh" }}>
+        <ColorModeScript initialColorMode="dark" />
         <ThirdwebProvider
           authConfig={{
             // Set this to your domain to prevent signature malleability attacks.

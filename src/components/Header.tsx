@@ -13,6 +13,7 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import NextLink from "next/link";
@@ -22,6 +23,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export default function Header() {
   const setUser = useSetRecoilState(userState);
+  const { colorMode, toggleColorMode } = useColorMode();
   const { auth } = initializeFirebaseClient();
   const user = useRecoilValue(userState);
   const address = useAddress();
@@ -60,6 +62,9 @@ export default function Header() {
         </HStack>
       </HStack>
       <HStack>
+        <Button onClick={toggleColorMode}>
+          Toggle {colorMode === "light" ? "Dark" : "Light"}
+        </Button>
         {user ? (
           <Menu>
             <MenuButton>
