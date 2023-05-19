@@ -33,16 +33,21 @@ export default function MarketPlace() {
   const [tab, setTab] = useState("coffee");
   const [coffees, setCoffees] = useState<DocumentData[]>([]);
   const [chocolates, setChocolates] = useState<DocumentData[]>([]);
-  const [searchData, setSearchData] = useState<DocumentData[]>([]);
+  const [coffeeSearchData, setCoffeeSearchData] = useState<DocumentData[]>([]);
+  const [chocolateSearchData, setChocolateSearchData] = useState<
+    DocumentData[]
+  >([]);
 
   const getCoffeesData = async () => {
     const querySnapshot = await getDocs(collection(db, "coffees"));
     setCoffees(querySnapshot.docs.map((doc) => doc.data()));
+    setCoffeeSearchData(querySnapshot.docs.map((doc) => doc.data()));
   };
 
   const getChocolateData = async () => {
     const querySnapshot = await getDocs(collection(db, "chocolates"));
     setChocolates(querySnapshot.docs.map((doc) => doc.data()));
+    setChocolateSearchData(querySnapshot.docs.map((doc) => doc.data()));
   };
 
   useEffect(() => {
@@ -52,52 +57,52 @@ export default function MarketPlace() {
 
   const onEnterChocolateSearch = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && watch("term") !== "") {
-      setSearchData(() =>
+      setChocolateSearchData(() =>
         chocolates.filter((i) =>
           i.title.toLowerCase().includes(watch("term").toLowerCase())
         )
       );
     } else {
-      setSearchData([]);
+      setChocolateSearchData(chocolates);
     }
   };
 
   const onEnterCoffeeSearch = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter" && watch("term") !== "") {
-      setSearchData(() =>
+      setCoffeeSearchData(() =>
         coffees.filter((i) =>
           i.title.toLowerCase().includes(watch("term").toLowerCase())
         )
       );
     } else {
-      setSearchData([]);
+      setCoffeeSearchData(coffees);
     }
   };
 
-  const onClickOrderBy = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "price") {
-      if (tab === "coffee") {
-        setSearchData(() => coffees.sort((a, b) => b.price - a.price));
-      } else {
-        setSearchData(() => chocolates.sort((a, b) => b.price - a.price));
-      }
-    } else if (e.target.value === "newest") {
-      if (tab === "coffee") {
-        setSearchData(() => coffees.sort((a, b) => b.createdAt - a.createdAt));
-      } else {
-        setSearchData(() =>
-          chocolates.sort((a, b) => b.createdAt - a.createdAt)
-        );
-      }
-    }
-  };
+  // const onClickOrderBy = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   if (e.target.value === "price") {
+  //     setCoffeeSearchData(() =>
+  //       coffeeSearchData.sort((a, b) => b.price - a.price)
+  //     );
+  //     setChocolateSearchData(() =>
+  //       chocolateSearchData.sort((a, b) => b.price - a.price)
+  //     );
+  //   } else if (e.target.value === "newest") {
+  //     setCoffeeSearchData(() =>
+  //       coffeeSearchData.sort((a, b) => b.createdAt - a.createdAt)
+  //     );
+  //     setChocolateSearchData(() =>
+  //       chocolateSearchData.sort((a, b) => b.createdAt - a.createdAt)
+  //     );
+  //   }
+  // };
 
   return (
     <Box mt="10">
       <HStack>
         <Heading>Marketplace</Heading>
       </HStack>
-      <HStack w="50%" mt={3}>
+      <HStack spacing={1} mt={3}>
         <InputGroup size="md" mr={5} w="96">
           <Input
             placeholder="Search"
@@ -110,14 +115,10 @@ export default function MarketPlace() {
             <Search2Icon />
           </InputRightElement>
         </InputGroup>
-        <Select
-          placeholder="Filter"
-          w={{ md: "40", lg: "60" }}
-          onChange={onClickOrderBy}
-        >
+        {/* <Select placeholder="Filter" w="60" onChange={onClickOrderBy}>
           <option value="price">Price</option>
           <option value="newest">Newest</option>
-        </Select>
+        </Select> */}
       </HStack>
       <Tabs mt={3}>
         <TabList>
@@ -132,9 +133,9 @@ export default function MarketPlace() {
               columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}
               spacing={4}
             >
-              {searchData.length !== 0
-                ? searchData.map((coffee) => <ProductCard data={coffee} />)
-                : coffees.map((coffee) => <ProductCard data={coffee} />)}
+              {coffeeSearchData.map((coffee) => (
+                <ProductCard data={coffee} />
+              ))}
             </SimpleGrid>
           </TabPanel>
           <TabPanel>
@@ -143,11 +144,9 @@ export default function MarketPlace() {
               columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}
               spacing={4}
             >
-              {searchData.length !== 0
-                ? searchData.map((coffee) => <ProductCard data={coffee} />)
-                : chocolates.map((chocolate) => (
-                    <ProductCard data={chocolate} />
-                  ))}
+              {chocolateSearchData.map((coffee) => (
+                <ProductCard data={coffee} />
+              ))}
             </SimpleGrid>
           </TabPanel>
         </TabPanels>
