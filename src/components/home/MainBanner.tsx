@@ -46,11 +46,11 @@ export default function MainBanner({
         <HStack mt={6}>
           <Button>{firstButton}</Button>
           {secondLink ? (
-            <Button as={Link} href={secondLink}>
+            <Button as={Link} href={secondLink} bgColor="#FF5959">
               {secondButton}
             </Button>
           ) : (
-            <Button>{secondButton}</Button>
+            <Button bgColor="#FF5959">{secondButton}</Button>
           )}
         </HStack>
       </Box>

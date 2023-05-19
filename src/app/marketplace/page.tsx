@@ -124,7 +124,7 @@ export default function MarketPlace() {
           <option value="newest">Newest</option>
         </Select> */}
       </HStack>
-      <Tabs mt={3}>
+      <Tabs mt={3} colorScheme="teal">
         <TabList>
           <Tab onChange={() => setTab("coffee")}>Coffee</Tab>
           <Tab onChange={() => setTab("chocolate")}>Chocolate</Tab>

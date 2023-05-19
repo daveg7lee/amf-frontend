@@ -83,7 +83,7 @@ export default function Me() {
           <Text fontSize="lg">0xxxxxxxx0xxx</Text>
         </VStack>
       </HStack>
-      <Tabs px="16" mt="14">
+      <Tabs px="16" mt="14" colorScheme="teal">
         <TabList>
           <Tab>Recent Item</Tab>
           <Tab>My Staking</Tab>

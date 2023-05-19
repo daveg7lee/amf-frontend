@@ -23,7 +23,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export default function Header() {
   const setUser = useSetRecoilState(userState);
-  const { colorMode, toggleColorMode } = useColorMode();
   const { auth } = initializeFirebaseClient();
   const user = useRecoilValue(userState);
   const address = useAddress();
@@ -53,18 +52,22 @@ export default function Header() {
             fontSize="md"
             fontWeight="medium"
             href="/marketplace"
+            _hover={{ color: "#FF5959" }}
           >
             Market
           </Link>
-          <Link as={NextLink} fontSize="md" fontWeight="medium" href="/defi">
+          <Link
+            as={NextLink}
+            fontSize="md"
+            fontWeight="medium"
+            href="/defi"
+            _hover={{ color: "#FF5959" }}
+          >
             Defi
           </Link>
         </HStack>
       </HStack>
       <HStack>
-        <Button onClick={toggleColorMode}>
-          Toggle {colorMode === "light" ? "Dark" : "Light"}
-        </Button>
         {user ? (
           <Menu>
             <MenuButton>
@@ -83,7 +86,7 @@ export default function Header() {
             </MenuList>
           </Menu>
         ) : (
-          <Button as={NextLink} href="/signin">
+          <Button bgColor="#FF5959" as={NextLink} href="/signin">
             Sign in
           </Button>
         )}
