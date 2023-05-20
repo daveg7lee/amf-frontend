@@ -57,7 +57,7 @@ export default function Home() {
           img="main.png"
           firstButton="Learn more"
           secondButton="Sign up"
-          secondLink="signup"
+          secondLink="signin"
           imgSize="22rem"
         />
         <MainBanner
