@@ -2,6 +2,11 @@
 
 import initializeFirebaseClient from "@/lib/initFirebase";
 import {
+  Box,
+  Container,
+  Divider,
+  Stack,
+  Text,
   Button,
   Checkbox,
   FormControl,
@@ -11,7 +16,7 @@ import {
   Heading,
   Input,
   VStack,
-  useToast,
+  useToast, SimpleGrid,
 } from "@chakra-ui/react";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
@@ -62,7 +67,88 @@ export default function Onboarding() {
       as="form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Heading mb={2}>Sign up</Heading>
+      <SimpleGrid columns={3} spacing={10}>
+        <Box
+            py={{ base: '0', sm: '8' }}
+            px={{ base: '4', sm: '10' }}
+            bg={{ base: 'transparent', sm: 'bg-surface' }}
+            boxShadow={{ base: 'none', sm: 'md' }}
+            borderRadius={{ base: 'none', sm: 'xl' }}
+            borderColor={"#90ee90"}
+        >
+          <Stack spacing="3">
+
+            <Stack spacing="3">
+              <Stack>
+
+              </Stack>
+              <HStack>
+                <Divider color={"red"}/>
+              </HStack>
+            </Stack>
+            <Stack spacing="3" textAlign={"center"}>
+              <Text> Title </Text>
+            </Stack>
+            <HStack justify="space-between">
+              <Text>Description obout our Dapp AMF</Text>
+            </HStack>
+          </Stack>
+        </Box>
+        <Box
+            py={{ base: '0', sm: '8' }}
+            px={{ base: '4', sm: '10' }}
+            bg={{ base: 'transparent', sm: 'bg-surface' }}
+            boxShadow={{ base: 'none', sm: 'md' }}
+            borderRadius={{ base: 'none', sm: 'xl' }}
+        >
+          <Stack spacing="3">
+
+            <Stack spacing="3">
+              <Stack>
+
+              </Stack>
+              <HStack>
+                <Divider color={"red"}/>
+              </HStack>
+            </Stack>
+            <Stack spacing="3" textAlign={"center"}>
+              <Text> Title </Text>
+            </Stack>
+            <HStack justify="space-between">
+              <Text>Description obout our Dapp AMF</Text>
+            </HStack>
+          </Stack>
+        </Box>
+
+        <Box
+            py={{ base: '0', sm: '8' }}
+            px={{ base: '4', sm: '10' }}
+            bg={{ base: 'transparent', sm: 'bg-surface' }}
+            boxShadow={{ base: 'none', sm: 'md' }}
+            borderRadius={{ base: 'none', sm: 'xl' }}
+        >
+          <Stack spacing="3">
+
+            <Stack spacing="3">
+              <Stack>
+
+              </Stack>
+              <HStack>
+                <Divider color={"red"}/>
+              </HStack>
+            </Stack>
+            <Stack spacing="3" textAlign={"center"}>
+              <Text> Title </Text>
+            </Stack>
+            <HStack justify="space-between">
+              <Text>Description obout our Dapp AMF</Text>
+            </HStack>
+          </Stack>
+        </Box>
+
+      </SimpleGrid>
+
+      <Heading mb={2} mt={"4"}>Sign up</Heading>
       <FormControl isInvalid={!!formState.errors.username}>
         <FormLabel>Username</FormLabel>
         <Input

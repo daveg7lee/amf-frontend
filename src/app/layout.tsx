@@ -1,19 +1,23 @@
 "use client";
 
+import {Footer} from "@/components/Footer"
 import "./globals.css";
 import { Providers } from "./providers";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import Header from "@/components/Header";
 import { RecoilRoot } from "recoil";
-import { Box, ColorModeScript } from "@chakra-ui/react";
+import { Box, ColorModeScript, Container } from "@chakra-ui/react";
+import {Html} from "next/document";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+
   return (
-    <html lang="en">
+    <>
       <body style={{ minHeight: "100vh" }}>
         <ColorModeScript initialColorMode="dark" />
         <ThirdwebProvider
@@ -43,11 +47,12 @@ export default function RootLayout({
               <Box px={{ sm: "3", md: "5", lg: "10" }} minH="100vh">
                 <Header />
                 {children}
+                <Footer/>
               </Box>
             </Providers>
           </RecoilRoot>
         </ThirdwebProvider>
       </body>
-    </html>
+    </>
   );
 }
