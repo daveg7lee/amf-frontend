@@ -1,3 +1,40 @@
+# Avalanche Meet Fairtrade
+
+The Fair Trade Marketplace enables anyone, including small businesses, to sell Fair Trade certified products without any fees, using Gas Relayer.
+
+Allows individuals and small businesses to sell fair trade certified products without commission fees.
+Offers the option to register products as NFTs, providing transparent visibility into the revenue distribution to producers.
+
+## Product 
+### FairTrade Product 
+Products can be registered as NFTs, allowing transparent tracking of revenue distribution to producers.
+In partnership with FloCert, a Fair Trade certification body.
+
+- Revenue distribution to producers.
+- Country of origin.
+- Fair Trade certification.
+
+### Consumer Data
+
+Directly connects consumers with producers, ensuring that more revenue reaches producers without intermediaries.
+Collaborates with FloCert, a FairTrade certification company, to validate the authenticity of FairTrade certificates.
+
+The Fairtrade Marketplace records the following consumer information:
+- Residence
+- Gender
+- Age
+- Number of product purchases
+
+## Tokenomics
+
+- AMF Token: Used for purchasing NFTs of goods, with the price including the supplier revenue and the commission taken by the platform.
+
+- Staking Incentives: Earn interest when staking AMF Tokens on Avalanche, contributing to the promotion and activation of fair trade.
+
+- Donations: The platform supports donations through a service called Giving Block, which facilitates contributions to charitable causes on the Avalanche network.
+
+
+# AMF-Frontend
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

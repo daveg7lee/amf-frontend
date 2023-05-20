@@ -11,7 +11,7 @@ import {
 import { signInWithCustomToken } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignIn() {
   const thirdwebAuth = useAuth();
@@ -20,6 +20,12 @@ export default function SignIn() {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { auth, db } = initializeFirebaseClient();
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      router.push("/");
+    }
+  }, [auth.currentUser]);
 
   async function signIn() {
     setIsLoading(true);
