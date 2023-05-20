@@ -912,7 +912,7 @@ export default function Defi() {
   return (
     <div>
       <HStack mt={"10"}>
-        <Heading>Defi</Heading>
+        <Heading>DeFi</Heading>
       </HStack>
 
       <Box alignContent={"center"}>
