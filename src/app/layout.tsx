@@ -20,6 +20,7 @@ export default function RootLayout({
         <ThirdwebProvider
           authConfig={{
             domain: process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN ?? "",
+            authUrl: process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN ?? "",
           }}
           activeChain={{
             chainId: 2000777,

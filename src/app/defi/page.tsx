@@ -9,6 +9,354 @@ import {
   useContractRead,
 } from "@thirdweb-dev/react";
 
+const aAMFTokenAbi = [
+  {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "Approval",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "Transfer",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+    ],
+    name: "allowance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "approve",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "decimals",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "mint",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "symbol",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "transfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "transferFrom",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
+
 const FarmContractAbi = [
   {
     inputs: [
@@ -194,7 +542,8 @@ export default function Defi() {
     "0x13a725829Ce876A217d297A732EEF07294d3818C"
   );
   const { contract: aAMFContract } = useContract(
-    "0x1284BeA70b418006e9CDAF658Cb48BFf29bb8073"
+    "0x1284BeA70b418006e9CDAF658Cb48BFf29bb8073",
+    aAMFTokenAbi
   );
   const { contract: AMFContract } = useContract(
     "0xd5cEBF2bce0305C3852B76f570992dE62687235c"
@@ -210,6 +559,8 @@ export default function Defi() {
   const { data: AMFBalance } = useContractRead(AMFContract, "balanceOf", [
     address,
   ]);
+
+  console.log(aAMFBalance);
 
   return (
     <div>
@@ -232,371 +583,13 @@ export default function Defi() {
           </VStack>
           <HStack>
             <Web3Button
-              contractAddress="0xd5cEBF2bce0305C3852B76f570992dE62687235c"
-              action={async (contract) => {
-                contract.call("approve", [
-                  "0x13a725829Ce876A217d297A732EEF07294d3818C",
-                  999,
-                ]);
-              }}
-              contractAbi={[
-                {
-                  inputs: [],
-                  stateMutability: "nonpayable",
-                  type: "constructor",
-                },
-                {
-                  anonymous: false,
-                  inputs: [
-                    {
-                      indexed: true,
-                      internalType: "address",
-                      name: "owner",
-                      type: "address",
-                    },
-                    {
-                      indexed: true,
-                      internalType: "address",
-                      name: "spender",
-                      type: "address",
-                    },
-                    {
-                      indexed: false,
-                      internalType: "uint256",
-                      name: "value",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "Approval",
-                  type: "event",
-                },
-                {
-                  anonymous: false,
-                  inputs: [
-                    {
-                      indexed: true,
-                      internalType: "address",
-                      name: "previousOwner",
-                      type: "address",
-                    },
-                    {
-                      indexed: true,
-                      internalType: "address",
-                      name: "newOwner",
-                      type: "address",
-                    },
-                  ],
-                  name: "OwnershipTransferred",
-                  type: "event",
-                },
-                {
-                  anonymous: false,
-                  inputs: [
-                    {
-                      indexed: true,
-                      internalType: "address",
-                      name: "from",
-                      type: "address",
-                    },
-                    {
-                      indexed: true,
-                      internalType: "address",
-                      name: "to",
-                      type: "address",
-                    },
-                    {
-                      indexed: false,
-                      internalType: "uint256",
-                      name: "value",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "Transfer",
-                  type: "event",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "owner",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "spender",
-                      type: "address",
-                    },
-                  ],
-                  name: "allowance",
-                  outputs: [
-                    {
-                      internalType: "uint256",
-                      name: "",
-                      type: "uint256",
-                    },
-                  ],
-                  stateMutability: "view",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "spender",
-                      type: "address",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "amount",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "approve",
-                  outputs: [
-                    {
-                      internalType: "bool",
-                      name: "",
-                      type: "bool",
-                    },
-                  ],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "account",
-                      type: "address",
-                    },
-                  ],
-                  name: "balanceOf",
-                  outputs: [
-                    {
-                      internalType: "uint256",
-                      name: "",
-                      type: "uint256",
-                    },
-                  ],
-                  stateMutability: "view",
-                  type: "function",
-                },
-                {
-                  inputs: [],
-                  name: "decimals",
-                  outputs: [
-                    {
-                      internalType: "uint8",
-                      name: "",
-                      type: "uint8",
-                    },
-                  ],
-                  stateMutability: "view",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "spender",
-                      type: "address",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "subtractedValue",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "decreaseAllowance",
-                  outputs: [
-                    {
-                      internalType: "bool",
-                      name: "",
-                      type: "bool",
-                    },
-                  ],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "spender",
-                      type: "address",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "addedValue",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "increaseAllowance",
-                  outputs: [
-                    {
-                      internalType: "bool",
-                      name: "",
-                      type: "bool",
-                    },
-                  ],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "to",
-                      type: "address",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "amount",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "mint",
-                  outputs: [],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-                {
-                  inputs: [],
-                  name: "name",
-                  outputs: [
-                    {
-                      internalType: "string",
-                      name: "",
-                      type: "string",
-                    },
-                  ],
-                  stateMutability: "view",
-                  type: "function",
-                },
-                {
-                  inputs: [],
-                  name: "owner",
-                  outputs: [
-                    {
-                      internalType: "address",
-                      name: "",
-                      type: "address",
-                    },
-                  ],
-                  stateMutability: "view",
-                  type: "function",
-                },
-                {
-                  inputs: [],
-                  name: "renounceOwnership",
-                  outputs: [],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-                {
-                  inputs: [],
-                  name: "symbol",
-                  outputs: [
-                    {
-                      internalType: "string",
-                      name: "",
-                      type: "string",
-                    },
-                  ],
-                  stateMutability: "view",
-                  type: "function",
-                },
-                {
-                  inputs: [],
-                  name: "totalSupply",
-                  outputs: [
-                    {
-                      internalType: "uint256",
-                      name: "",
-                      type: "uint256",
-                    },
-                  ],
-                  stateMutability: "view",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "to",
-                      type: "address",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "amount",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "transfer",
-                  outputs: [
-                    {
-                      internalType: "bool",
-                      name: "",
-                      type: "bool",
-                    },
-                  ],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "from",
-                      type: "address",
-                    },
-                    {
-                      internalType: "address",
-                      name: "to",
-                      type: "address",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "amount",
-                      type: "uint256",
-                    },
-                  ],
-                  name: "transferFrom",
-                  outputs: [
-                    {
-                      internalType: "bool",
-                      name: "",
-                      type: "bool",
-                    },
-                  ],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-                {
-                  inputs: [
-                    {
-                      internalType: "address",
-                      name: "newOwner",
-                      type: "address",
-                    },
-                  ],
-                  name: "transferOwnership",
-                  outputs: [],
-                  stateMutability: "nonpayable",
-                  type: "function",
-                },
-              ]}
-            >
-              Click!!
-            </Web3Button>
-            <Web3Button
               contractAddress="0x13a725829Ce876A217d297A732EEF07294d3818C"
               action={async (contract) => {
                 await contract.call("stake", [1000]);
               }}
               contractAbi={FarmContractAbi}
             >
-              Click me!
+              Stake
             </Web3Button>
             <Web3Button
               contractAddress="0x13a725829Ce876A217d297A732EEF07294d3818C"
