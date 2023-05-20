@@ -20,10 +20,10 @@ Directly connects consumers with producers, ensuring that more revenue reaches p
 Collaborates with FloCert, a FairTrade certification company, to validate the authenticity of FairTrade certificates.
 
 The Fairtrade Marketplace records the following consumer information:
-
-- Consumer details.
-- Revenue for producers.
-- Country of origin
+- Residence
+- Gender
+- Age
+- Number of product purchases
 
 ## Tokenomics
 
