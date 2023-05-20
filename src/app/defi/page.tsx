@@ -190,7 +190,7 @@ const FarmContractAbi = [
 
 export default function Web3() {
   const { contract: farmContract } = useContract(
-    "0x7dBA88f73e4fb990505DB302ebAd479b5f173cE7"
+    "0x13a725829Ce876A217d297A732EEF07294d3818C"
   );
   const { contract: aAMFContract } = useContract(
     "0x1284BeA70b418006e9CDAF658Cb48BFf29bb8073"
@@ -218,17 +218,17 @@ export default function Web3() {
       spacing={8}
     >
       <VStack spacing={3}>
-        <Text>Total staking: {stakedData?.toNumber() ?? "0"}</Text>
-        <Text>Total reward: {data?.toNumber() ?? "0"}</Text>
+        <Text>Total staking: {stakedData?.toString() ?? "0"}</Text>
+        <Text>Total reward: {data?.toString() ?? "0"}</Text>
         <Text>Total AMF Balance: {AMFBalance?.toString() ?? "0"}</Text>
-        <Text>Total aAMF Balance: {aAMFBalance?.toNumber() ?? "0"}</Text>
+        <Text>Total aAMF Balance: {aAMFBalance?.toString() ?? "0"}</Text>
       </VStack>
       <HStack>
         <Web3Button
           contractAddress="0xd5cEBF2bce0305C3852B76f570992dE62687235c"
           action={async (contract) => {
             contract.call("approve", [
-              "0x7dBA88f73e4fb990505DB302ebAd479b5f173cE7",
+              "0x13a725829Ce876A217d297A732EEF07294d3818C",
               999,
             ]);
           }}
@@ -583,7 +583,7 @@ export default function Web3() {
           Click!!
         </Web3Button>
         <Web3Button
-          contractAddress="0x7dBA88f73e4fb990505DB302ebAd479b5f173cE7"
+          contractAddress="0x13a725829Ce876A217d297A732EEF07294d3818C"
           action={async (contract) => {
             await contract.call("stake", [1000]);
           }}
@@ -592,7 +592,7 @@ export default function Web3() {
           Click me!
         </Web3Button>
         <Web3Button
-          contractAddress="0x7dBA88f73e4fb990505DB302ebAd479b5f173cE7"
+          contractAddress="0x13a725829Ce876A217d297A732EEF07294d3818C"
           action={async (contract) => {
             await contract.call("claimReward");
           }}
