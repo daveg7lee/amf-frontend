@@ -31,6 +31,7 @@ export default function Home() {
     const querySnapshot = await getDocs(
       query(collection(db, "items"), where("type", "==", "chocolate"))
     );
+    console.log(querySnapshot.docs.map((doc) => doc.data()));
     setChocolates(querySnapshot.docs.map((doc) => doc.data()));
   };
 
