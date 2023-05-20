@@ -1,13 +1,11 @@
 "use client";
 
-import { userState } from "@/atom";
 import MainBanner from "@/components/home/MainBanner";
 import initializeFirebaseClient from "@/lib/initFirebase";
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
 import {
   getDocs,
   collection,
