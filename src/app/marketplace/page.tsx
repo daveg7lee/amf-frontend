@@ -46,6 +46,11 @@ export default function MarketPlace() {
         return { id: doc.id, ...doc.data() };
       })
     );
+    setCoffeeSearchData(
+      querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
   };
 
   const getChocolateData = async () => {
@@ -53,6 +58,11 @@ export default function MarketPlace() {
       query(collection(db, "items"), where("type", "==", "chocolate"))
     );
     setChocolates(
+      querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
+    setChocolateSearchData(
       querySnapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() };
       })
@@ -142,9 +152,10 @@ export default function MarketPlace() {
               columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}
               spacing={4}
             >
-              {coffeeSearchData.map((coffee) => (
-                <ProductCard data={coffee} />
-              ))}
+              {coffeeSearchData.map((coffee) => {
+                console.log(coffee);
+                return <ProductCard data={coffee} />;
+              })}
             </SimpleGrid>
           </TabPanel>
           <TabPanel>
