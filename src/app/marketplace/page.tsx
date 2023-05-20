@@ -153,7 +153,6 @@ export default function MarketPlace() {
               spacing={4}
             >
               {coffeeSearchData.map((coffee) => {
-                console.log(coffee);
                 return <ProductCard data={coffee} />;
               })}
             </SimpleGrid>

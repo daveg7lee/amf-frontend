@@ -17,7 +17,6 @@ interface IProductCardProps {
 }
 
 export default function ProductCard({ data }: IProductCardProps) {
-  console.log(data.id);
   return (
     <Link href={`marketplace/${data.id}`}>
       <Card
