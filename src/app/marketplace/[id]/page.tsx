@@ -1,6 +1,6 @@
 "use client";
 
-import { Image, VStack, Grid, Divider } from "@chakra-ui/react";
+import { Image, VStack, Grid, Divider, SkeletonText } from "@chakra-ui/react";
 import initializeFirebaseClient from "@/lib/initFirebase";
 import {
   Box,
@@ -12,12 +12,33 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { DocumentData } from "firebase-admin/firestore";
-import { getDocs, query, collection, where } from "firebase/firestore";
+import {
+  getDocs,
+  query,
+  collection,
+  where,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import ProductCard from "@/components/home/ProductCard";
+import { usePathname } from "next/navigation";
 
 export default function MarketPlace() {
   const { db } = initializeFirebaseClient();
+  const path = usePathname();
+  const id = path.split("/")[2];
+  const [data, setData] = useState<DocumentData>();
   const [coffees, setCoffees] = useState<DocumentData[]>([]);
+
+  const getItemData = async () => {
+    if (!id) return;
+
+    const itemRef = doc(db, "items", id);
+    const data = await getDoc(itemRef);
+    if (data.exists()) {
+      setData(data.data());
+    }
+  };
 
   const getCoffeesData = async () => {
     const querySnapshot = await getDocs(
@@ -28,6 +49,7 @@ export default function MarketPlace() {
 
   useEffect(() => {
     getCoffeesData();
+    getItemData();
   }, []);
 
   return (
@@ -48,38 +70,49 @@ export default function MarketPlace() {
           justifyContent="space-between"
           spacing={8}
         >
-          <Grid templateColumns="repeat(2, 1fr)" gap={8}>
+          <Grid templateColumns="repeat(2, 1fr)" gap={12}>
             <Box>
-              <Text fontWeight="bold">Name</Text>
-              <Text>Totally normal coffee</Text>
+              {data ? (
+                <>
+                  <Text fontWeight="bold">Name</Text>
+                  <Text>{data.title}</Text>
+                </>
+              ) : (
+                <SkeletonText noOfLines={2} skeletonHeight={2} />
+              )}
             </Box>
 
             <Box>
-              <Text fontWeight="bold">Coporation</Text>
-              <Text>awsome coffee</Text>
+              {data ? (
+                <>
+                  <Text fontWeight="bold">Coporation</Text>
+                  <Text>{data.company}</Text>{" "}
+                </>
+              ) : (
+                <SkeletonText noOfLines={2} skeletonHeight={2} />
+              )}
             </Box>
 
             <Box>
-              <Text fontWeight="bold">Provider</Text>
-              <Text>David</Text>
+              {data ? (
+                <>
+                  <Text fontWeight="bold">Date</Text>
+                  <Text>{data.createdAt}</Text>
+                </>
+              ) : (
+                <SkeletonText noOfLines={2} skeletonHeight={2} />
+              )}
             </Box>
 
             <Box>
-              <Text fontWeight="bold">Date</Text>
-              <Text>23.03.01</Text>
-            </Box>
-
-            <Box>
-              <Text fontWeight="bold">Description</Text>
-              <Text>
-                This coffee, Totally Simple coffee. Tatste, flavor, anything is
-                simple. so enjoy simply
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fontWeight="bold">Current Price</Text>
-              <Text>30 AMF</Text>
+              {data ? (
+                <>
+                  <Text fontWeight="bold">Price</Text>
+                  <Text>{data.price}</Text>
+                </>
+              ) : (
+                <SkeletonText noOfLines={2} skeletonHeight={2} />
+              )}
             </Box>
           </Grid>
 

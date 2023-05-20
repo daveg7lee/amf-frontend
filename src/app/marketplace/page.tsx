@@ -10,7 +10,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Select,
   SimpleGrid,
   Tab,
   TabList,
@@ -102,7 +101,7 @@ export default function MarketPlace() {
   // };
 
   return (
-    <Box mt="10">
+    <Box mt="10" h="90vh">
       <HStack>
         <Heading>Marketplace</Heading>
       </HStack>
