@@ -41,16 +41,22 @@ export default function MarketPlace() {
     const querySnapshot = await getDocs(
       query(collection(db, "items"), where("type", "==", "coffee"))
     );
-    setCoffees(querySnapshot.docs.map((doc) => doc.data()));
-    setCoffeeSearchData(querySnapshot.docs.map((doc) => doc.data()));
+    setCoffees(
+      querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
   };
 
   const getChocolateData = async () => {
     const querySnapshot = await getDocs(
       query(collection(db, "items"), where("type", "==", "chocolate"))
     );
-    setChocolates(querySnapshot.docs.map((doc) => doc.data()));
-    setChocolateSearchData(querySnapshot.docs.map((doc) => doc.data()));
+    setChocolates(
+      querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
   };
 
   useEffect(() => {

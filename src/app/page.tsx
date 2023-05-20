@@ -2,7 +2,7 @@
 
 import MainBanner from "@/components/home/MainBanner";
 import initializeFirebaseClient from "@/lib/initFirebase";
-import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useEffect, useState } from "react";
@@ -13,9 +13,39 @@ import {
   where,
   query,
 } from "firebase/firestore";
+import ProductCard from "@/components/home/ProductCard";
 
 export default function Home() {
   const { db } = initializeFirebaseClient();
+  const [coffees, setCoffees] = useState<DocumentData[]>([]);
+  const [chocolates, setChocolates] = useState<DocumentData[]>([]);
+
+  const getCoffeesData = async () => {
+    const querySnapshot = await getDocs(
+      query(collection(db, "items"), where("type", "==", "coffee"))
+    );
+    setCoffees(
+      querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
+  };
+
+  const getChocolateData = async () => {
+    const querySnapshot = await getDocs(
+      query(collection(db, "items"), where("type", "==", "chocolate"))
+    );
+    setChocolates(
+      querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      })
+    );
+  };
+
+  useEffect(() => {
+    getCoffeesData();
+    getChocolateData();
+  }, []);
 
   return (
     <Box pb={5}>
@@ -55,21 +85,22 @@ export default function Home() {
           secondLink="marketplace"
         />
       </Carousel>
-      <Container>
-        <div style={{ textAlign: "center" }}>
-          <Text fontSize="3xl">
-            AMF means ‘Avalanche, Meet Fairtrade’.
-            <br />
-            <br />
-          </Text>
-          <Text textAlign="center">
-            Have you heard about Fairtrade or interested in that?
-            <br />
-            Fairtrade is so important in our life.
-            <br /> So we want to deliver our vision to people in the world.
-          </Text>
-        </div>
-      </Container>
+      <Box px={{ base: "0", md: "6", lg: "20" }}>
+        <Heading mb={3}>Coffee</Heading>
+        <SimpleGrid columns={{ sm: 1, md: 2, lg: 2, xl: 3 }} spacing={4}>
+          {coffees.map((coffee) => (
+            <ProductCard data={coffee} />
+          ))}
+        </SimpleGrid>
+      </Box>
+      <Box my="20" px={{ base: "0", md: "6", lg: "20" }}>
+        <Heading mb={3}>Chocolate</Heading>
+        <SimpleGrid columns={{ sm: 1, md: 2, lg: 2, xl: 3 }} spacing={4}>
+          {chocolates.map((chocolate) => (
+            <ProductCard data={chocolate} />
+          ))}
+        </SimpleGrid>
+      </Box>
     </Box>
   );
 }
