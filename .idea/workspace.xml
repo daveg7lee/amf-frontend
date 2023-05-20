@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bae54eb0-e3b4-4e99-834c-1b4f37b9a891" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/fonts/DarkerGrotesque-Black.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fonts/DarkerGrotesque-Regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/onboarding/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/onboarding/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/defi/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/defi/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +45,8 @@
       <recent name="C:\Users\minii\Desktop\Hackathon\amf-frontend\src\font" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\minii\Desktop\Hackathon\amf-frontend\public" />
+      <recent name="C:\Users\minii\Desktop\Hackathon\amf-frontend\public\Image" />
       <recent name="C:\Users\minii\Desktop\Hackathon\amf-frontend\src\app\marketplace\market_detail" />
     </key>
   </component>
@@ -64,7 +61,7 @@
       <workItem from="1684496614565" duration="1823000" />
       <workItem from="1684499668924" duration="12229000" />
       <workItem from="1684512297690" duration="6014000" />
-      <workItem from="1684543784002" duration="14107000" />
+      <workItem from="1684543784002" duration="17118000" />
     </task>
     <servers />
   </component>

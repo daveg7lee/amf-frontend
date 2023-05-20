@@ -133,6 +133,17 @@ export default function MarketPlace() {
                                 variant='outline'
                                 width="1200px" height={"400px"}
                             >
+                                <Image src={"@/../public/Token Swap.png"}/>
+                            </Card>
+                        </TabPanel>
+                        <TabPanel>
+                            <Card
+                                mt={"20px"} ml={"115px"}
+                                direction={{ base: 'column', sm: 'row' }}
+                                overflow='hidden'
+                                variant='outline'
+                                width="1200px" height={"400px"}
+                            >
                             </Card>
                         </TabPanel>
                     </TabPanels>
